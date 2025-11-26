@@ -226,4 +226,4 @@ This section identifies the primary contributor to the Hospital Management Syste
 
 | Role | Name |
 | :--- | :--- |
-| **Project Author** | [[Your Name or GitHub Username Here](https://github.com/AbhishekTadaskar)] |
+| **Project Author** | [https://github.com/AbhishekTadaskar](https://github.com/AbhishekTadaskar) |
