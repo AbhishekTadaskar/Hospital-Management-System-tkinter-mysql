@@ -62,31 +62,39 @@ graph TD
 ---
 ## 📌 Architectural Flow Explanation
 
-This flow details the step-by-step process of a typical database transaction (e.g., saving, updating, or fetching a record) as it moves through the **Client Tier**, the **Interface Layer**, and the **Data Tier**.
+This flow details the step-by-step process of a typical database transaction as it moves through the **Client Tier**, the **Interface Layer**, and the **Data Tier**.
 
-### 1. Client Tier (Python Application)
+---
 
-* **A: User Interaction:** The process begins with the user initiating an action via the **Tkinter GUI**, typically a **Button Click** (e.g., 'Prescription Data', 'Update', or clicking a row to select data).
-* **B: Hospital Class Methods:** The associated method within the Python **`Hospital` class** is called to handle the request.
-* **C: Gather Data:** The method retrieves the necessary input values from the **Tkinter variables** (e.g., `self.ref`, `self.PatientName`) to formulate the request payload.
+### Client Tier (Python Application)
 
-### 2. Interface Layer
+1.  **User Interaction (Input):** The process begins with the user initiating an action via the **Tkinter GUI**, typically a **Button Click** (e.g., 'Prescription Data', 'Update', or clicking a row to select data).
+2.  **Hospital Class Methods (Logic):** The associated method within the Python **`Hospital` class** is called to handle the request.
+3.  **Gather Data:** The method retrieves the necessary input values from the **Tkinter Variables** to formulate the request payload.
 
-* **D: Execute SQL Query:** The Python code utilizes the **`mysql.connector`** library to prepare and attempt to execute the appropriate SQL query.
-* **E: MySQL Connector API:** The request is packaged and managed by the connector's API layer.
-* **F: Connection Object:** A direct **Connection Object** to the database is established and used to physically send the query to the server.
+---
 
-### 3. Data Tier (MySQL Server)
+### Interface Layer
 
-* **G: hospital\_data Database:** The **MySQL Server** receives the query directed at the `hospital_data` database.
-* **H: CRUD Operation:** The server executes the operation (whether **INSERT, UPDATE, SELECT, or DELETE**) on the relevant tables.
-* **I: Result Set or Status:** The server generates a response—either a **Result Set** (for SELECT queries) or an **Execution Status** (success/error/row count for INSERT/UPDATE/DELETE).
+4.  **Execute SQL Query:** The Python code prepares the SQL command and uses the **`mysql.connector`** library to initiate execution.
+5.  **MySQL Connector API:** The request is packaged and managed by the connector's API layer.
+6.  **Connection Object:** A direct **Connection Object** to the database is established and used to physically send the query to the server.
 
-### 4. Data Return and UI Update
+---
 
-* **I $\rightarrow$ D (Return Path):** The result or status is sent back from the server, received by the **MySQL Connector (D)**.
-* **D $\rightarrow$ B (Processing):** The **`Hospital` Class Method (B)** processes the received data or status.
-* **B $\rightarrow$ J (Finalization):** Finally, the application updates the graphical interface (**UI**), displaying a confirmation or error message to the user, and critically, calling `fetch_data()` to **Refresh the Table** to reflect the database's latest state.
+### Data Tier (MySQL Server)
+
+7.  **hospital\_data Database:** The **MySQL Server** receives the query directed at the `hospital_data` database.
+8.  **CRUD Operation:** The server executes the operation (whether **INSERT, UPDATE, SELECT, or DELETE**) on the relevant table(s).
+9.  **Result Set or Status:** The server generates a response—either a **Result Set** (for SELECT queries) or an **Execution Status** (success/error/row count).
+
+---
+
+### Data Return and UI Update
+
+10. **Result Set or Status $\rightarrow$ Execute SQL Query (Return Path):** The result or status is sent back from the server, received by the **MySQL Connector**.
+11. **Execute SQL Query $\rightarrow$ Hospital Class Methods (Processing):** The **`Hospital` Class Method** processes the received data or status.
+12. **Hospital Class Methods $\rightarrow$ Update UI:** Finally, the application updates the graphical interface (**UI**), displaying a confirmation or error message, and critically, calling `fetch_data()` to **Refresh the Table** to reflect the database's latest state.
 ---
 
 ### 🧱 Key Components
