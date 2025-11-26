@@ -52,45 +52,91 @@ Open your terminal or command prompt and run:
 pip install mysql-connector-python
 
 ```
+---
+### Step 3: Configure MySQL Database
 
-``` mermaid
-graph TD
-    subgraph Client Tier (Python Application)
-        A[User Interaction: Button Click (e.g., Prescription Data)]
-        B{Hospital Class Methods}
-        C[Gather Data from Tkinter Variables]
-        D[mysql.connector: Execute SQL Query]
-    end
+You need to create the database and the required table.
 
-    subgraph Interface
-        E[MySQL Connector API] --> F[Connection Object]
-    end
+---
+#### 3.1. Database Connection Details
 
-    subgraph Data Tier (MySQL Server)
-        G[hospital_data Database]
-        H[Data Table (Storage)]
-        I[Result Set / Status (Success/Error)]
-    end
+Before proceeding, ensure the `db_config` in the Python script is correct for your MySQL setup.
 
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> F
-    F --> G
-    G --> H{CRUD Operation: INSERT, UPDATE, SELECT}
-    H --> I
-    I --> D
-    D --> B
-    B --> J[Update UI: Show success/error message & Refresh Table]
+```python
+        self.db_config = {
+            "host": "localhost",
+            "user": "root",
+            "password": "yourpass", # <-- UPDATE THIS with your MySQL password
+            "database": "hospital_data"
+        }
+```
+---
+#### 3.2. Create Database and Table
 
-    style A fill:#D0E7FF,stroke:#333
-    style J fill:#D0E7FF,stroke:#333
-    style B fill:#FFE0B2,stroke:#333
-    style C fill:#FFFDE7,stroke:#333
-    style D fill:#FFE0B2,stroke:#333
-    style E fill:#B2EBF2,stroke:#333
-    style F fill:#B2EBF2,stroke:#333
-    style G fill:#E0F7FA,stroke:#333
-    style H fill:#E0F7FA,stroke:#333
-    style I fill:#E0F7FA,stroke:#333
+Open your MySQL client (Workbench, command line, etc.) and execute the following SQL commands to create the database and the required 18-column table.
+
+**Note:** The table columns must precisely match the variables used in the Python script.
+
+```sql
+-- Create the Database
+CREATE DATABASE IF NOT EXISTS hospital_data;
+
+-- Use the newly created database
+USE hospital_data;
+
+-- Create the 'data' table (must match the 18 fields used in the Python code)
+CREATE TABLE IF NOT EXISTS data (
+    nameoftablets VARCHAR(255),
+    ref VARCHAR(255) PRIMARY KEY, -- Using 'ref' as the unique identifier
+    dose VARCHAR(255),
+    nooftablets VARCHAR(255),
+    lot VARCHAR(255),
+    issuedate VARCHAR(255),
+    expdate VARCHAR(255),
+    dailydose VARCHAR(255),
+    sideeffect VARCHAR(255),
+    furtherInfo VARCHAR(255),
+    bloodpressure VARCHAR(255),
+    storageadvice VARCHAR(255),
+    medication VARCHAR(255),
+    patientId VARCHAR(255),
+    nhsnumber VARCHAR(255),
+    patientname VARCHAR(255),
+    dateofbirth VARCHAR(255),
+    patientaddress VARCHAR(255)
+);
+
+-- Optional: Verify the table structure
+DESCRIBE data;
+```
+---
+### Step 4: Run the Application 🚀
+
+Save the provided Python code as a file (e.g., `hospital_app.py`) and run it from your terminal:
+
+```bash
+python hospital_app.py
+```
+The **Tkinter application window** should now appear, confirming the application is running successfully.
+
+---
+## 💻 Application Functionality
+
+The application provides the following core features:
+
+| Button | Functionality | SQL Operation |
+| :--- | :--- | :--- |
+| **Prescription** | Generates a formatted text prescription in the right panel based on current form data. | None |
+| **Prescription Data** | Saves the data from all fields as a new record into the MySQL `data` table. | `INSERT` |
+| **Update** | Modifies the existing record in the database using the **Reference No** (`ref`) field as the unique key. | `UPDATE` |
+| **Delete** | Removes the record from the database based on the **Reference No** (`ref`) field. | `DELETE` |
+| **Clear** | Clears the data from all input fields and the Prescription panel. | None |
+| **Exit** | Closes the application window. | None |
+
+---
+
+### 📋 Using the Table
+
+* The **Treeview** at the bottom automatically displays all records fetched from the database.
+* The `fetch_data()` method is called upon startup and after every successful insert or update/delete operation to refresh the display.
+* **Double-clicking** or selecting a row in the table triggers the `on_row_selected` method, which automatically loads that record's data back into the input fields for editing or deletion.
