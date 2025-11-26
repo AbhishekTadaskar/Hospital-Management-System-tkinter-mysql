@@ -14,43 +14,35 @@ To view this diagram, you may need a Markdown viewer that supports the [Mermaid 
 ```mermaid
 
 graph TD
-
-    %% ---------- Client Tier ----------
-    subgraph Client_Tier["Client Tier (Python Application)"]
-        A[User Interaction: Button Click (Prescription Data)]
+    subgraph Client Tier (Python Application)
+        A[User Interaction: Button Click (e.g., Prescription Data)]
         B{Hospital Class Methods}
         C[Gather Data from Tkinter Variables]
         D[mysql.connector: Execute SQL Query]
-        J[Update UI: Show success/error and refresh table]
     end
 
-    %% ---------- Interface ----------
-    subgraph Interface["Interface"]
-        E[MySQL Connector API]
-        F[Connection Object]
+    subgraph Interface
+        E[MySQL Connector API] --> F[Connection Object]
     end
 
-    %% ---------- Data Tier ----------
-    subgraph Data_Tier["Data Tier (MySQL Server)"]
+    subgraph Data Tier (MySQL Server)
         G[hospital_data Database]
-        H{CRUD Operation: INSERT / UPDATE / SELECT / DELETE}
-        I[Result Set or Status (Success / Error)]
+        H[Data Table (Storage)]
+        I[Result Set / Status (Success/Error)]
     end
 
-    %% Flow
     A --> B
     B --> C
     C --> D
     D --> E
     E --> F
     F --> G
-    G --> H
+    G --> H{CRUD Operation: INSERT, UPDATE, SELECT}
     H --> I
     I --> D
     D --> B
-    B --> J
+    B --> J[Update UI: Show success/error message & Refresh Table]
 
-    %% Styles
     style A fill:#D0E7FF,stroke:#333
     style J fill:#D0E7FF,stroke:#333
     style B fill:#FFE0B2,stroke:#333
@@ -61,6 +53,4 @@ graph TD
     style G fill:#E0F7FA,stroke:#333
     style H fill:#E0F7FA,stroke:#333
     style I fill:#E0F7FA,stroke:#333
-
-
 ```
