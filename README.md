@@ -218,4 +218,12 @@ The application provides the following core features:
 * The `fetch_data()` method is called upon startup and after every successful insert or update/delete operation to refresh the display.
 * **Double-clicking** or selecting a row in the table triggers the `on_row_selected` method, which automatically loads that record's data back into the input fields for editing or deletion.
 
+---
 
+## ✒️ Project Author
+
+This section identifies the primary contributor to the Hospital Management System project.
+
+| Role | Name |
+| :--- | :--- |
+| **Project Author** | [[Your Name or GitHub Username Here](https://github.com/AbhishekTadaskar)] |
