@@ -140,3 +140,54 @@ The application provides the following core features:
 * The **Treeview** at the bottom automatically displays all records fetched from the database.
 * The `fetch_data()` method is called upon startup and after every successful insert or update/delete operation to refresh the display.
 * **Double-clicking** or selecting a row in the table triggers the `on_row_selected` method, which automatically loads that record's data back into the input fields for editing or deletion.
+
+```mermaid
+graph TD
+
+    %% ---------- Client Tier ----------
+    subgraph Client_Tier["Client Tier - Python Application"]
+        A[User Interaction: Button Click]
+        B{Hospital Class Methods}
+        C[Gather Data from Tkinter Variables]
+        D[mysql.connector: Execute SQL Query]
+        J[Update UI: Show success/error & Refresh Table]
+    end
+
+    %% ---------- Interface ----------
+    subgraph Interface_Layer["Interface Layer"]
+        E[MySQL Connector API]
+        F[Connection Object]
+    end
+
+    %% ---------- Data Tier ----------
+    subgraph Data_Tier["Data Tier - MySQL Server"]
+        G[hospital_data Database]
+        H{CRUD Operation: INSERT, UPDATE, SELECT}
+        I[Result Set or Status]
+    end
+
+    %% Flow
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+    H --> I
+    I --> D
+    D --> B
+    B --> J
+
+    %% Styles
+    style A fill:#D0E7FF,stroke:#333
+    style J fill:#D0E7FF,stroke:#333
+    style B fill:#FFE0B2,stroke:#333
+    style C fill:#FFFDE7,stroke:#333
+    style D fill:#FFE0B2,stroke:#333
+    style E fill:#B2EBF2,stroke:#333
+    style F fill:#B2EBF2,stroke:#333
+    style G fill:#E0F7FA,stroke:#333
+    style H fill:#E0F7FA,stroke:#333
+    style I fill:#E0F7FA,stroke:#333
+```
