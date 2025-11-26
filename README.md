@@ -10,8 +10,7 @@ This chart illustrates how the two tiers — the Client Tier (Python/Tkinter) an
 graph TD
 
     %% ---------- Client Tier ----------
-    subgraph Client_Tier["Client Tier - Python Application"]
-
+    subgraph Client_Tier["Client Tier (Python App)"]
 
         A[User Interaction: Button Click]
         B{Hospital Class Methods}
