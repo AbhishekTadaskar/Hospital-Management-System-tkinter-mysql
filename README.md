@@ -4,6 +4,7 @@ This project is a simple **Hospital Management System** developed using **Python
 
 ---
 ## 🌟 Architectural Overview
+This chart illustrates how the two tiers — the Client Tier (Python/Tkinter) and the Data Tier (MySQL) — interact when a user performs a typical action, such as saving or updating a prescription record.
 
 ```mermaid
 graph TD
@@ -58,6 +59,34 @@ graph TD
 
 ```
 
+---
+## 📌 Architectural Flow Explanation
+
+This flow details the step-by-step process of a typical database transaction (e.g., saving, updating, or fetching a record) as it moves through the **Client Tier**, the **Interface Layer**, and the **Data Tier**.
+
+### 1. Client Tier (Python Application)
+
+* **A: User Interaction:** The process begins with the user initiating an action via the **Tkinter GUI**, typically a **Button Click** (e.g., 'Prescription Data', 'Update', or clicking a row to select data).
+* **B: Hospital Class Methods:** The associated method within the Python **`Hospital` class** is called to handle the request.
+* **C: Gather Data:** The method retrieves the necessary input values from the **Tkinter variables** (e.g., `self.ref`, `self.PatientName`) to formulate the request payload.
+
+### 2. Interface Layer
+
+* **D: Execute SQL Query:** The Python code utilizes the **`mysql.connector`** library to prepare and attempt to execute the appropriate SQL query.
+* **E: MySQL Connector API:** The request is packaged and managed by the connector's API layer.
+* **F: Connection Object:** A direct **Connection Object** to the database is established and used to physically send the query to the server.
+
+### 3. Data Tier (MySQL Server)
+
+* **G: hospital\_data Database:** The **MySQL Server** receives the query directed at the `hospital_data` database.
+* **H: CRUD Operation:** The server executes the operation (whether **INSERT, UPDATE, SELECT, or DELETE**) on the relevant tables.
+* **I: Result Set or Status:** The server generates a response—either a **Result Set** (for SELECT queries) or an **Execution Status** (success/error/row count for INSERT/UPDATE/DELETE).
+
+### 4. Data Return and UI Update
+
+* **I $\rightarrow$ D (Return Path):** The result or status is sent back from the server, received by the **MySQL Connector (D)**.
+* **D $\rightarrow$ B (Processing):** The **`Hospital` Class Method (B)** processes the received data or status.
+* **B $\rightarrow$ J (Finalization):** Finally, the application updates the graphical interface (**UI**), displaying a confirmation or error message to the user, and critically, calling `fetch_data()` to **Refresh the Table** to reflect the database's latest state.
 ---
 
 ### 🧱 Key Components
