@@ -11,6 +11,7 @@ graph TD
 
     %% ---------- Client Tier ----------
     subgraph Client_Tier["Client Tier - Python Application"]
+...
         A[User Interaction: Button Click]
         B{Hospital Class Methods}
         C[Gather Data from Tkinter Variables]
