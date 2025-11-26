@@ -13,35 +13,43 @@ To view this diagram, you may need a Markdown viewer that supports the [Mermaid 
 
 ```mermaid
 graph TD
-    subgraph Client Tier (Python Application)
-        A[User Interaction: Button Click (e.g., Prescription Data)]
+
+    %% ---------- Client Tier ----------
+    subgraph Client_Tier["Client Tier (Python Application)"]
+        A[User Interaction: Button Click<br>(e.g., Prescription Data)]
         B{Hospital Class Methods}
         C[Gather Data from Tkinter Variables]
-        D[mysql.connector: Execute SQL Query]
+        D[mysql.connector:<br>Execute SQL Query]
+        J[Update UI:<br>Show Success/Error & Refresh Table]
     end
 
-    subgraph Interface
-        E[MySQL Connector API] --> F[Connection Object]
+    %% ---------- Interface ----------
+    subgraph Interface["Interface"]
+        E[MySQL Connector API]
+        F[Connection Object]
     end
 
-    subgraph Data Tier (MySQL Server)
+    %% ---------- Data Tier ----------
+    subgraph Data_Tier["Data Tier (MySQL Server)"]
         G[hospital_data Database]
-        H[Data Table (Storage)]
-        I[Result Set / Status (Success/Error)]
+        H{CRUD Operation:<br>INSERT, UPDATE, SELECT, DELETE}
+        I[Result Set / Status<br>(Success or Error)]
     end
 
+    %% Flow
     A --> B
     B --> C
     C --> D
     D --> E
     E --> F
     F --> G
-    G --> H{CRUD Operation: INSERT, UPDATE, SELECT}
+    G --> H
     H --> I
     I --> D
     D --> B
-    B --> J[Update UI: Show success/error message & Refresh Table]
+    B --> J
 
+    %% Styles
     style A fill:#D0E7FF,stroke:#333
     style J fill:#D0E7FF,stroke:#333
     style B fill:#FFE0B2,stroke:#333
