@@ -5,19 +5,58 @@ This project is a simple **Hospital Management System** developed using **Python
 ---
 ## 🌟 Architectural Overview
 
-The application follows a **Two-Tier Architecture**:
+```mermaid
+graph TD
 
-### Client Tier (Presentation & Logic)
-Handled by the **Python application** using the `tkinter` library.
+    %% ---------- Client Tier ----------
+    subgraph Client_Tier["Client Tier - Python Application"]
+        A[User Interaction: Button Click]
+        B{Hospital Class Methods}
+        C[Gather Data from Tkinter Variables]
+        D[mysql.connector: Execute SQL Query]
+        J[Update UI: Show success/error & Refresh Table]
+    end
 
-* **GUI:** The `Hospital` class manages all GUI elements (frames, labels, entry fields, buttons, and the Treeview for data display).
-* **Application Logic:** Methods like `generate_prescription`, `clear_fields`, `on_row_selected`, and data validation are handled here.
+    %% ---------- Interface ----------
+    subgraph Interface_Layer["Interface Layer"]
+        E[MySQL Connector API]
+        F[Connection Object]
+    end
 
-### Data Tier (Database)
-Handled by the **MySQL server**.
+    %% ---------- Data Tier ----------
+    subgraph Data_Tier["Data Tier - MySQL Server"]
+        G[hospital_data Database]
+        H{CRUD Operation: INSERT, UPDATE, SELECT}
+        I[Result Set or Status]
+    end
 
-* **Database Connection:** The `mysql.connector` library establishes communication.
-* **Data Persistence:** The application interacts with the `hospital_data` database and the `data` table to perform **CRUD** (Create, Read, Update, Delete) operations via SQL queries (`INSERT`, `SELECT`, `UPDATE`, `DELETE`).
+    %% Flow
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+    H --> I
+    I --> D
+    D --> B
+    B --> J
+
+    %% Styles (with black text)
+    style A fill:#D0E7FF,stroke:#333,color:#000
+    style J fill:#D0E7FF,stroke:#333,color:#000
+    style B fill:#FFE0B2,stroke:#333,color:#000
+    style C fill:#FFFDE7,stroke:#333,color:#000
+    style D fill:#FFE0B2,stroke:#333,color:#000
+    style E fill:#B2EBF2,stroke:#333,color:#000
+    style F fill:#B2EBF2,stroke:#333,color:#000
+    style G fill:#E0F7FA,stroke:#333,color:#000
+    style H fill:#E0F7FA,stroke:#333,color:#000
+    style I fill:#E0F7FA,stroke:#333,color:#000
+
+
+```
 
 ---
 
@@ -141,45 +180,4 @@ The application provides the following core features:
 * The `fetch_data()` method is called upon startup and after every successful insert or update/delete operation to refresh the display.
 * **Double-clicking** or selecting a row in the table triggers the `on_row_selected` method, which automatically loads that record's data back into the input fields for editing or deletion.
 
-```mermaid
-graph TD
-    subgraph Client Tier (Python Application)
-        A[User Interaction: Button Click (e.g., Prescription Data)]
-        B{Hospital Class Methods}
-        C[Gather Data from Tkinter Variables]
-        D[mysql.connector: Execute SQL Query]
-    end
 
-    subgraph Interface
-        E[MySQL Connector API] --> F[Connection Object]
-    end
-
-    subgraph Data Tier (MySQL Server)
-        G[hospital_data Database]
-        H[Data Table (Storage)]
-        I[Result Set / Status (Success/Error)]
-    end
-
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> F
-    F --> G
-    G --> H{CRUD Operation: INSERT, UPDATE, SELECT}
-    H --> I
-    I --> D
-    D --> B
-    B --> J[Update UI: Show success/error message & Refresh Table]
-
-    style A fill:#D0E7FF,stroke:#333
-    style J fill:#D0E7FF,stroke:#333
-    style B fill:#FFE0B2,stroke:#333
-    style C fill:#FFFDE7,stroke:#333
-    style D fill:#FFE0B2,stroke:#333
-    style E fill:#B2EBF2,stroke:#333
-    style F fill:#B2EBF2,stroke:#333
-    style G fill:#E0F7FA,stroke:#333
-    style H fill:#E0F7FA,stroke:#333
-    style I fill:#E0F7FA,stroke:#333
-```
