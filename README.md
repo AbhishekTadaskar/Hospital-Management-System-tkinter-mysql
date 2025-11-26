@@ -51,6 +51,8 @@ Open your terminal or command prompt and run:
 ```bash
 pip install mysql-connector-python
 
+```
+
 ``` mermaid
 graph TD
     subgraph Client Tier (Python Application)
