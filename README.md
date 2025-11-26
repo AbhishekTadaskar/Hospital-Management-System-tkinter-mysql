@@ -50,3 +50,45 @@ Open your terminal or command prompt and run:
 
 ```bash
 pip install mysql-connector-python
+
+``` mermaid
+graph TD
+    subgraph Client Tier (Python Application)
+        A[User Interaction: Button Click (e.g., Prescription Data)]
+        B{Hospital Class Methods}
+        C[Gather Data from Tkinter Variables]
+        D[mysql.connector: Execute SQL Query]
+    end
+
+    subgraph Interface
+        E[MySQL Connector API] --> F[Connection Object]
+    end
+
+    subgraph Data Tier (MySQL Server)
+        G[hospital_data Database]
+        H[Data Table (Storage)]
+        I[Result Set / Status (Success/Error)]
+    end
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H{CRUD Operation: INSERT, UPDATE, SELECT}
+    H --> I
+    I --> D
+    D --> B
+    B --> J[Update UI: Show success/error message & Refresh Table]
+
+    style A fill:#D0E7FF,stroke:#333
+    style J fill:#D0E7FF,stroke:#333
+    style B fill:#FFE0B2,stroke:#333
+    style C fill:#FFFDE7,stroke:#333
+    style D fill:#FFE0B2,stroke:#333
+    style E fill:#B2EBF2,stroke:#333
+    style F fill:#B2EBF2,stroke:#333
+    style G fill:#E0F7FA,stroke:#333
+    style H fill:#E0F7FA,stroke:#333
+    style I fill:#E0F7FA,stroke:#333
