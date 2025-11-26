@@ -12,15 +12,16 @@ This diagram illustrates the data and control flow between the **Client Tier (Py
 To view this diagram, you may need a Markdown viewer that supports the [Mermaid extension](https://mermaid.js.org/).
 
 ```mermaid
+
 graph TD
 
     %% ---------- Client Tier ----------
     subgraph Client_Tier["Client Tier (Python Application)"]
-        A[User Interaction: Button Click<br>(e.g., Prescription Data)]
+        A[User Interaction: Button Click (Prescription Data)]
         B{Hospital Class Methods}
         C[Gather Data from Tkinter Variables]
-        D[mysql.connector:<br>Execute SQL Query]
-        J[Update UI:<br>Show Success/Error & Refresh Table]
+        D[mysql.connector: Execute SQL Query]
+        J[Update UI: Show success/error and refresh table]
     end
 
     %% ---------- Interface ----------
@@ -32,8 +33,8 @@ graph TD
     %% ---------- Data Tier ----------
     subgraph Data_Tier["Data Tier (MySQL Server)"]
         G[hospital_data Database]
-        H{CRUD Operation:<br>INSERT, UPDATE, SELECT, DELETE}
-        I[Result Set / Status<br>(Success or Error)]
+        H{CRUD Operation: INSERT / UPDATE / SELECT / DELETE}
+        I[Result Set or Status (Success / Error)]
     end
 
     %% Flow
@@ -60,5 +61,6 @@ graph TD
     style G fill:#E0F7FA,stroke:#333
     style H fill:#E0F7FA,stroke:#333
     style I fill:#E0F7FA,stroke:#333
+
 
 ```
