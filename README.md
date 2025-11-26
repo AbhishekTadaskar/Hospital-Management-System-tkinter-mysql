@@ -29,3 +29,24 @@ Handled by the **MySQL server**.
 | **Database Connector** | `mysql.connector` | Connects the Python application to the MySQL server. |
 | **Hospital Class** | Python OOP | The core class managing UI layout, Tkinter variables, business logic, and database operations. |
 | **hospital\_data** | MySQL Database | Stores all patient and prescription records. |
+
+---
+## 🛠️ Step-by-Step Setup Guide
+
+Follow these steps to set up and run the project locally.
+
+### Step 1: Prerequisites
+
+Ensure you have the following installed on your system:
+
+* **Python 3.x**
+* **MySQL Server** (e.g., via XAMPP, MySQL Workbench, or a standalone installation)
+
+### Step 2: Install Python Dependencies
+
+You need the **MySQL Connector for Python** to interact with the database.
+
+Open your terminal or command prompt and run:
+
+```bash
+pip install mysql-connector-python
