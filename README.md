@@ -11,8 +11,6 @@ This diagram illustrates the data and control flow between the **Client Tier (Py
 
 To view this diagram, you may need a Markdown viewer that supports the [Mermaid extension](https://mermaid.js.org/).
 
-### Cleaned Mermaid Diagram Code
-
 ```mermaid
 graph TD
     subgraph Client Tier (Python Application)
@@ -54,4 +52,5 @@ graph TD
     style G fill:#E0F7FA,stroke:#333
     style H fill:#E0F7FA,stroke:#333
     style I fill:#E0F7FA,stroke:#333
+
 ```
