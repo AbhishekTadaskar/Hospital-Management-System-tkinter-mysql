@@ -33,7 +33,7 @@ class Hospital:
         self.db_config = {
             "host": "localhost",
             "user": "root",
-            "password": "yourpass",
+            "password": "yourpass",    # <-- UPDATE THIS with your MySQL password
             "database": "hospital_data"
         }
 
@@ -527,3 +527,4 @@ if __name__ == "__main__":
     app = Hospital(root)
 
     root.mainloop()
+
