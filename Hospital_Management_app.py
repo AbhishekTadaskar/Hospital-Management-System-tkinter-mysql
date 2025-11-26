@@ -33,7 +33,7 @@ class Hospital:
         self.db_config = {
             "host": "localhost",
             "user": "root",
-            "password": "9881",
+            "password": "yourpass",
             "database": "hospital_data"
         }
 
@@ -525,4 +525,5 @@ class Hospital:
 if __name__ == "__main__":
     root = tk.Tk()
     app = Hospital(root)
+
     root.mainloop()
